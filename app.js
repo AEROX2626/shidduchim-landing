@@ -1,6 +1,6 @@
 /**
- * שאלון מועמדות לשידוכים אינטראקטיבי - בעזרת ה'
- * ניהול שלבים, שמירה מקומית, תצוגה מקדימה של כרטיס השידוך ויצוא ל-WhatsApp
+ * שאלון עומק לשידוכים בעזרת ה' - שאלות למועמדת
+ * ניהול שלבים, שמירה מקומית, תצוגה מקדימה של כרטיס המועמדת ויצוא ל-WhatsApp
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -25,10 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Conditionals
   const hasChildrenRadios = document.querySelectorAll('input[name="has_children"]');
   const boxChildrenDetails = document.getElementById('box-children-details');
-  const setsTorahRadios = document.querySelectorAll('input[name="sets_torah_time"]');
-  const boxTorahFrequency = document.getElementById('box-torah-frequency');
-  const shomerNegiahRadios = document.querySelectorAll('input[name="shomer_negiah"]');
-  const boxNegiahTime = document.getElementById('box-negiah-time');
 
   // View Mode
   const btnToggleView = document.getElementById('btn-toggle-view');
@@ -61,13 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
   let uploadedPhotoBase64 = '';
 
   const stepTitles = [
-    'פרטים אישיים ותמונה',
-    'סטטוס ומשפחה',
-    'עולם התורה והאמונה',
-    'שמירת נגיעה וצניעות',
-    'אופי, זוגיות ובניית בית',
-    'מידות ועבודת הנפש',
-    'התאמה לשידוך ובירורים'
+    'היכרות אישית ורקע',
+    'השקפה, תורה וקדושת הבית',
+    'כשרות, שבת וקדושת המטבח',
+    'ניהול הבית, כלכלה וטכנולוגיה',
+    'חינוך ילדים והורות',
+    'דינמיקה זוגית, שלום בית ומידות',
+    'קווים אדומים והתאמה סופית'
   ];
 
   // Initialize
@@ -201,12 +197,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handle Photo File
   function handlePhotoFile(file) {
     if (!file.type.startsWith('image/')) {
-      showToast('אנא בחר קובץ תמונה תקין (JPG, PNG וכד\')', 'warning');
+      showToast('אנא בחרי קובץ תמונה תקין (JPG, PNG וכד\')', 'warning');
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      showToast('גודל התמונה גדול מ-5MB. אנא בחר תמונה קטנה יותר.', 'warning');
+      showToast('גודל התמונה גדול מ-5MB. אנא בחרי תמונה קטנה יותר.', 'warning');
       return;
     }
 
@@ -252,28 +248,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Conditionals logic
   function checkConditionals() {
-    // Children
     const hasChildrenVal = document.querySelector('input[name="has_children"]:checked')?.value;
-    if (hasChildrenVal === 'יש') {
-      boxChildrenDetails.classList.remove('hidden');
-    } else {
-      boxChildrenDetails.classList.add('hidden');
-    }
-
-    // Torah
-    const setsTorahVal = document.querySelector('input[name="sets_torah_time"]:checked')?.value;
-    if (setsTorahVal === 'כן') {
-      boxTorahFrequency.classList.remove('hidden');
-    } else {
-      boxTorahFrequency.classList.add('hidden');
-    }
-
-    // Shmirat Negiah
-    const shomerNegiahVal = document.querySelector('input[name="shomer_negiah"]:checked')?.value;
-    if (shomerNegiahVal === 'כן') {
-      boxNegiahTime.classList.remove('hidden');
-    } else {
-      boxNegiahTime.classList.add('hidden');
+    if (boxChildrenDetails) {
+      if (hasChildrenVal === 'יש') {
+        boxChildrenDetails.classList.remove('hidden');
+      } else {
+        boxChildrenDetails.classList.add('hidden');
+      }
     }
   }
 
@@ -326,99 +307,76 @@ document.addEventListener('DOMContentLoaded', () => {
   // Live Card Update & Form Completion
   function updateLiveCard() {
     const data = getFormData();
-    const fullName = `${data.first_name || ''} ${data.last_name || ''}`.trim() || 'מועמד לשידוכים';
+    const fullName = `${data.first_name || ''} ${data.last_name || ''}`.trim() || 'מועמדת לשידוכים';
     
-    // Top Profile
+    // Top Profile Header
     document.getElementById('card-display-fullname').textContent = fullName;
     dockPreviewName.textContent = fullName;
 
-    document.getElementById('card-badge-status').innerHTML = `<i class="fa-solid fa-heart"></i> ${data.marital_status || 'רווק'}`;
+    document.getElementById('card-badge-status').innerHTML = `<i class="fa-solid fa-heart"></i> ${data.marital_status || 'רווקה'}`;
     document.getElementById('card-badge-age').innerHTML = `<i class="fa-solid fa-cake-candles"></i> גיל: ${data.age || '-'}`;
-    document.getElementById('card-badge-height').innerHTML = `<i class="fa-solid fa-ruler-vertical"></i> גובה: ${data.height || '-'}`;
+    document.getElementById('card-badge-height').innerHTML = `<i class="fa-solid fa-ruler-vertical"></i> ${data.height || '-'}`;
     document.getElementById('card-badge-city').innerHTML = `<i class="fa-solid fa-location-dot"></i> ${data.city || '-'}`;
 
     document.getElementById('card-display-ethnicity').textContent = data.ethnicity || 'לא צוין';
-    document.getElementById('card-display-profession').textContent = data.profession || 'לא צוין';
+    document.getElementById('card-display-profession').textContent = data.occupation_aspiration ? (data.occupation_aspiration.length > 40 ? data.occupation_aspiration.slice(0, 40) + '...' : data.occupation_aspiration) : 'לא צוין';
     document.getElementById('card-display-phone').textContent = data.phone || 'לא צוין';
 
-    // Torah
-    document.getElementById('card-val-teshuva').textContent = data.teshuva_time || '-';
-    
-    let torahText = data.sets_torah_time || 'לא צוין';
-    if (data.sets_torah_time === 'כן' && data.torah_frequency) {
-      torahText += ` (${data.torah_frequency})`;
-    }
-    document.getElementById('card-val-torah').textContent = torahText;
+    // Torah & Modesty
+    setCardText('card-val-husband-torah', data.husband_torah_aspiration);
+    setCardText('card-val-head-covering', data.head_covering_preference);
+    setCardText('card-val-modesty', data.modesty_style);
+    setCardText('card-val-rabbi', data.guiding_rabbi);
 
-    let rabbiComm = [];
-    if (data.rabbi_name) rabbiComm.push(`הרב: ${data.rabbi_name}`);
-    if (data.community) rabbiComm.push(`קהילה: ${data.community}`);
-    if (data.travel_uman) rabbiComm.push(`אומן: ${data.travel_uman}`);
-    document.getElementById('card-val-rabbi-comm').textContent = rabbiComm.length ? rabbiComm.join(' | ') : 'לא צוין';
+    // Kashrut & Shabbat
+    setCardText('card-val-kashrut-home', data.home_kashrut);
+    setCardText('card-val-kashrut-out', data.outside_kashrut);
+    setCardText('card-val-husband-customs', data.husband_customs);
+    setCardText('card-val-shabbat', data.shabbat_atmosphere);
 
-    let negiahStr = data.shomer_negiah || 'לא צוין';
-    if (data.shomer_negiah === 'כן' && data.negiah_time) {
-      negiahStr += ` (כ-${data.negiah_time})`;
-    }
-    document.getElementById('card-val-negiah').textContent = negiahStr;
+    // Household & Tech
+    setCardText('card-val-finance', data.financial_outlook);
+    setCardText('card-val-chores', data.chores_expectations);
+    setCardText('card-val-tech', data.tech_screens_policy);
+    setCardText('card-val-hospitality', data.hospitality_preference);
 
-    document.getElementById('card-val-kashrut').textContent = data.shabbat_kashrut || 'שמירה מלאה';
+    // Kids & Parenting
+    setCardText('card-val-schools', data.kids_schooling_type);
+    setCardText('card-val-parenting', data.parenting_philosophy);
+    setCardText('card-val-father-role', data.father_role_kids);
 
-    // Traits
-    document.getElementById('card-trait-1').textContent = data.trait_1 || '1. -';
-    document.getElementById('card-trait-2').textContent = data.trait_2 || '2. -';
-    document.getElementById('card-trait-3').textContent = data.trait_3 || '3. -';
+    // Husband Expectation & Reconciliation
+    setCardText('card-val-husband-expectation', data.husband_role_expectation || 'טרם מולא פירוט זה...');
+    setCardText('card-val-love-lang', data.love_language);
+    setCardText('card-val-reconciliation', data.reconciliation_approach ? (data.reconciliation_approach.length > 45 ? data.reconciliation_approach.slice(0, 45) + '...' : data.reconciliation_approach) : '-');
 
-    document.getElementById('card-val-trait-loved').textContent = data.trait_loved || '-';
-    document.getElementById('card-val-finance').textContent = data.financial_conduct || 'מאוזן';
-
-    // Big Text Boxes
-    document.getElementById('card-val-looking-for').textContent = data.looking_for_in_wife || 'טרם מולא פירוט זה...';
-    document.getElementById('card-val-shalom-bayit').textContent = data.shalom_bayit || 'טרם מולא פירוט זה...';
-    document.getElementById('card-val-crucial').textContent = data.crucial_facts || 'אין עניינים מיוחדים';
-
-    // New Relationship Dynamics
-    if (document.getElementById('card-val-love-lang')) {
-      document.getElementById('card-val-love-lang').textContent = data.primary_love_language || 'לא נבחר';
-    }
-    if (document.getElementById('card-val-conflict')) {
-      document.getElementById('card-val-conflict').textContent = data.conflict_reaction || 'לא צוין';
-    }
-    if (document.getElementById('card-val-household')) {
-      document.getElementById('card-val-household').textContent = data.household_sharing || 'לא צוין';
-    }
-    if (document.getElementById('card-val-space')) {
-      document.getElementById('card-val-space').textContent = data.personal_space || 'איזון בריא';
-    }
-
-    // New Middot Fields
-    if (document.getElementById('card-val-flexibility')) {
-      document.getElementById('card-val-flexibility').textContent = data.flexibility_compromise ? (data.flexibility_compromise.length > 55 ? data.flexibility_compromise.slice(0, 55) + '...' : data.flexibility_compromise) : 'גמיש ונוח לבריות';
-    }
-    if (document.getElementById('card-val-gratitude')) {
-      document.getElementById('card-val-gratitude').textContent = data.gratitude_expression ? (data.gratitude_expression.length > 55 ? data.gratitude_expression.slice(0, 55) + '...' : data.gratitude_expression) : 'רואה ומודה על הטוב';
-    }
-    if (document.getElementById('card-val-feedback')) {
-      document.getElementById('card-val-feedback').textContent = data.receiving_feedback || 'מקשיב ומפנים';
-    }
-    if (document.getElementById('card-val-dan-zechut')) {
-      document.getElementById('card-val-dan-zechut').textContent = data.dan_lechaf_zechut || 'דן לכף זכות';
-    }
+    // Red Lines & Crucial Notes
+    let redLinesCombined = '';
+    if (data.red_lines) redLinesCombined += `⛔ קווים אדומים: ${data.red_lines}\n`;
+    if (data.crucial_facts_her) redLinesCombined += `📌 דברים שחשוב לדעת: ${data.crucial_facts_her}`;
+    setCardText('card-val-redlines', redLinesCombined || 'אין עניינים מיוחדים שצוינו');
 
     // Calculate Completion
     calculateCompletion(data);
   }
 
+  function setCardText(id, val) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.textContent = val && val.trim().length > 0 ? val : '-';
+    }
+  }
+
   function calculateCompletion(data) {
     const importantFields = [
-      'first_name', 'last_name', 'age', 'city', 'phone',
-      'marital_status', 'teshuva_time', 'sets_torah_time',
-      'shomer_negiah', 'dating_boundaries', 'trait_1', 'trait_2', 'trait_3',
-      'looking_for_in_wife', 'shalom_bayit', 'conflict_reaction',
-      'primary_love_language', 'household_sharing', 'profession',
-      'trait_loved', 'trait_to_improve', 'anger_handling',
-      'flexibility_compromise', 'gratitude_expression',
-      'open_divorcee_kids', 'crucial_facts'
+      'first_name', 'last_name', 'age', 'city', 'phone', 'marital_status',
+      'teshuva_journey', 'occupation_aspiration',
+      'husband_torah_aspiration', 'head_covering_preference', 'modesty_style',
+      'home_kashrut', 'outside_kashrut', 'shabbat_atmosphere', 'husband_customs',
+      'financial_outlook', 'chores_expectations', 'tech_screens_policy',
+      'kids_schooling_type', 'parenting_philosophy',
+      'husband_role_expectation', 'reconciliation_approach', 'love_language',
+      'red_lines', 'crucial_facts_her'
     ];
 
     let filled = 0;
@@ -447,7 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function saveToLocalStorage() {
     try {
       const data = getFormData();
-      localStorage.setItem('shidduch_candidate_form_data', JSON.stringify(data));
+      localStorage.setItem('shidduch_candidate_form_data_v2', JSON.stringify(data));
       saveStatus.innerHTML = '<i class="fa-solid fa-check"></i> נשמר';
       setTimeout(() => {
         saveStatus.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> נשמר מקומית';
@@ -460,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Restore from LocalStorage
   function restoreFromLocalStorage() {
     try {
-      const saved = localStorage.getItem('shidduch_candidate_form_data');
+      const saved = localStorage.getItem('shidduch_candidate_form_data_v2');
       if (!saved) return;
       const data = JSON.parse(saved);
 
@@ -491,62 +449,44 @@ document.addEventListener('DOMContentLoaded', () => {
   // Fill Realistic Sample Data for testing
   function fillSampleData() {
     const sample = {
-      first_name: 'יוסף אליהו',
-      last_name: 'לוי',
-      age: '29',
-      birth_date: 'י"ד ניסן תשנ"ז (21/04/1997)',
-      height: '1.80 מ\'',
-      city: 'ירושלים (רחביה/נחלאות)',
-      phone: '054-8493021',
-      ethnicity: 'ספרדי / ישראלי',
-      languages: 'עברית שפת אם, אנגלית שוטפת',
-      marital_status: 'רווק',
+      first_name: 'מרים',
+      last_name: 'כהן',
+      age: '26',
+      birth_date: 'י"ב אלול תשנ"ח (03/09/1998)',
+      height: '1.67 מ\'',
+      city: 'ירושלים (בית וגן)',
+      phone: '052-7164920',
+      ethnicity: 'ספרדייה',
+      marital_status: 'רווקה',
       has_children: 'אין',
-      family_relation: 'קשר חם, תומך ומכבד מאוד. הורים ואחים מסורתיים-דתיים.',
-      family_involved: 'חלקית',
-      teshuva_time: '5 שנים',
-      teshuva_trigger: 'חיפוש עומק ומשמעות בחיים, קריאת ספרי מוסר וחסידות, סמינר עמוק ששינה את נקודת המבט.',
-      sets_torah_time: 'כן',
-      torah_frequency: 'שיעור גמרא יומי בשעה 20:00, חברותא בהלכה פעמיים בשבוע, לימוד מוסר בבוקר',
-      rabbi_name: 'הרב שלום ארוש / הרב יגאל כהן',
-      community: 'ספרדי בני תורה / חסידות עם אור ופנימיות',
-      travel_uman: 'כן, לפעמים / תלוי',
-      spiritual_routine: 'שחרית עם נץ החמה, חצי שעה התבודדות בשדה או בגינה, תפילות במניין, קביעות שיעורי תורה יומיים.',
-      shabbat_kashrut: 'שמירת שבת בהקפדה ושמחה, כשרות מהדרין (בד"ץ העדה החרדית / בית יוסף)',
-      shomer_negiah: 'כן',
-      negiah_time: '4 שנים בהקפדה מלאה',
-      dating_boundaries: 'פגישות במקומות שקטים ומכבדים (לובי מלון, טיילת, בית קפה צנוע). שמירה מוקפדת על נגיעה וללא ייחוד. תקשורת כנה ומכבדת ללא מריחת זמן.',
-      trait_1: 'סבלני ובעל שקט פנימי',
-      trait_2: 'אוהב לעזור ומקשיב מכל הלב',
-      trait_3: 'בעל חוש הומור ושמחת חיים',
-      looking_for_in_wife: 'מחפש בחורה עם יראת שמיים פנימית ואמיתית, לב טוב, עדינות, שמחת חיים ושאיפה לבנות בית של תורה, חסד ושלום בית. אחת שמעריכה התפתחות אישית וחיבור עמוק.',
-      shalom_bayit: 'הקשבה אמיתית לצד השני, לוותר מתוך אהבה, לדעת להחמיא ולפרגן, לעולם לא ללכת לישון בכעס, ותמיד לשים את שלום הבית מעל כל צדק רגעי.',
-      conflict_reaction: 'צריך פסק זמן להירגע ואז מדבר בנחת',
-      primary_love_language: 'מילות הערכה, מחמאות וחיזוק',
-      household_sharing: 'שותפות מלאה וטבעית בכל המטלות',
-      personal_space: 'חשוב לי שילוב בריא - זמן איכות זוגי ומשפחתי קבוע בכל יום, לצד שעה של לימוד והתבודדות אישית.',
-      roles_husband_wife: 'שותפות שוויונית מתוך כבוד הדדי, שבה הבעל מכבד את אשתו יותר מגופו ואוהבה כגופו, עוגן רוחני ורגשי, והאישה היא עקרת הבית ומאירה את הנשמה של הבית.',
-      financial_conduct: 'מאוזן',
-      lifestyle_habits: 'לא מעשן, כוסית יין בשבת ומועדים בלבד, שומר על תזונה בריאה וכושר גופני פעמיים בשבוע.',
-      hobbies: 'נגינה בגיטרה ופיוטים, טיולי טבע ומעיינות, קריאת ספרות הגות ותורה, בישול לשבת.',
-      profession: 'מהנדס תוכנה בהייטק (משלב עבודה וקביעות עתים לתורה)',
-      education: 'תואר ראשון במדעי המחשב + לימוד בישיבה לבעלי תשובה',
-      future_plans: 'להקים בית של תורה וחסד, להמשיך להתפתח מקצועית במקביל להגדלת שעות הלימוד, ולגדל ילדים בריאים ושמחים.',
-      raising_children: 'חשוב לי לגדל ילדים באווירה של אהבה ללא תנאי, יראת שמיים מתוך מתיקות, חינוך למידות טובות, כבוד הבריות ושמחה פנימית.',
-      trait_loved: 'מידת החסד ואהבת חינם, היכולת לראות את הטוב בכל יהודי.',
-      trait_to_improve: 'לפעמים נוטה לחשוב יותר מדי (overthinking) ולוקח דברים ללב, עובד על שחרור וביטחון בה\'.',
-      anger_handling: 'נושם עמוק, שותה מים קרים, לא מגיב בכעס ברגע הראשון, ומחכה לרגיעה כדי לדבר בצורה בוגרת ומכבדת.',
-      flexibility_compromise: 'משתדל לזרום בנחת כשדברים משתנים. למדתי שבזוגיות הוויתור הוא הניצחון האמיתי של שלום הבית.',
-      gratitude_expression: 'אומר תודה מכל הלב על כל מחווה קטנה. מאמין שהכרת הטוב היא הבסיס לכל קשר בריא ושמח.',
-      receiving_feedback: 'מקשיב ומפנים גם אם בהתחלה לא קל',
-      dan_lechaf_zechut: 'משתדל תמיד לדון לכף זכות',
-      stress_joy_handling: 'תפילה אישית, שמיעת ניגון שמח, ריצה בטבע, ושינון שהכל מאת השם יתברך לטובה.',
-      working_on_traits: 'לימוד יומי בספר "מסילת ישרים", התבודדות וחשבון נפש אישי לפני השינה.',
-      preferred_age: '24-29',
-      preferred_location: 'ירושלים / בית שמש / מרכז (גמיש)',
-      open_divorcee_kids: 'לגרושה ללא ילדים בלבד',
-      crucial_facts: 'בריא ברוך ה\' גופנית ונפשית. עובד מסודר, מחפש קשר תכליתי ורציני לחתונה תוך כמה חודשים של היכרות בריאה.',
-      additional_notes: 'שנזכה לבשורות טובות בקרוב ולבניין עדי עד!'
+      teshuva_journey: 'גדלתי בבית מסורתי-חם. לפני כ-4 שנים התחזקתי בעקבות שיעורי תורה ומדרשייה בירושלים. כיום שומרת תורה ומצוות מלאות מתוך אהבה, שמחה ורצון עז להקים בית תורני יציב.',
+      occupation_aspiration: 'עובדת כיועצת חינוכית ומורה במשרה חלקית (עד 14:00). חשוב לי מאוד להיות נוכחת בבית, לגדל את הילדים ברוגע ולהשרות שלווה.',
+      husband_torah_aspiration: 'משלב עבודה עם קביעות עתים עמוקה',
+      head_covering_preference: 'מטפחת / שביס מלא',
+      modesty_style: 'צניעות מוקפדת ואלגנטית, שרוולים מלאים, חצאיות ארוכות וצבעים נעימים ולא מושכים תשומת לב.',
+      guiding_rabbi: 'הרב ראובן אלבז / מתייעצת עם הרבנית של המדרשייה',
+      dating_boundaries: 'שמירת נגיעה מלאה, ללא ייחוד כלל, פגישות במקומות שקטים ומכבדים, התקדמות עניינית לבירור התאמה ללא מריחת זמן.',
+      home_kashrut: 'מהדרין מובהק (עדה חרדית, רובין, לנדא, בית יוסף)',
+      outside_kashrut: 'במסעדות רק מהדרין מובהק ומוכר. אצל המשפחה אוכלת בכבוד לפי גדרי ההלכה דברים סגורים או מוצרים בהכשר מהדרין ללא פגיעה בכבודם.',
+      shabbat_atmosphere: 'שולחן שבת שמח ומרומם, שירי שבת, דברי תורה קצרים ומאירים של הבעל, אוכל טעים ומוקפד, אווירה של מנוחת נפש ללא לחץ.',
+      husband_customs: 'כן, בשמחה ובטבעיות',
+      financial_outlook: 'איזון מחושב ותקציב מסודר ללא חובות',
+      chores_expectations: 'אני שמחה לקחת על עצמי את עיקר ניהול הבית, הבישול והטיפול בשוטף, ומצפה שהבעל יהיה שותף אכפתי – בקניות, עזרה בהורדת הפח ובהכנות לקראת שבת.',
+      tech_screens_policy: 'אינטרנט מסונן נטפרי בלבד וללא טלוויזיה',
+      hospitality_preference: 'אוהבת מאוד לארח בשמחה וברוחב לב, אך חשוב לי לשמור גם שבתות אינטימיות ושקטות רק לנו כזוג.',
+      kids_schooling_type: 'תלמודי תורה ובית יעקב חרדי קלאסי',
+      parenting_philosophy: 'הרבה חום, חיבוקים, מילים מעצימות ואהבה ללא תנאי, יחד עם גבולות ברורים ועקביים שמקנים לילד ביטחון ושמחת חיים.',
+      child_crisis_reaction: 'לקרב בימין, להקשיב לכאב של הילד, לא לכפות בכוח, להרבות בתפילות וחיזוק הקשר האישי, ולהתייעץ יחד עם איש מקצוע תורני.',
+      father_role_kids: 'דוגמה אישית של יראת שמיים ואהבת תורה, שיחות אישיות עם הילדים, משחקים משותפים ולימוד מתוק וסבלני.',
+      husband_role_expectation: 'עוגן רוחני ורגשי של הבית, אדם שמכבד ומעריך, בעל מידות טובות וסבלנות, שמשרה ביטחון, אהבה ושמחה בבית.',
+      reconciliation_approach: 'לתת לי 15 דקות של שקט להירגע. לא להגיב בציניות או תוקפנות, אלא לגשת ברוגע עם חיבוק ומילה טובה, ולהקשיב בלי להאשים.',
+      love_language: 'מילות הערכה, מחמאות ופרגון',
+      inlaws_boundaries: 'כיבוד הורים מלא באהבה וברוחב לב, אך ברור שהזוגיות שלנו היא קודש הקודשים. החלטות מתקבלות אך ורק בינינו בשיח פנימי.',
+      personal_traits_reflection: 'מעריכה בי נאמנות, לב רגיש ואוהב, וסדר. עובדת לשפר דאגנות יתר ולפתח יותר ביטחון בהשם יתברך.',
+      red_lines: 'כעס ותוקפנות, קמצנות, חוסר אמינות ושקרים, התמכרויות מכל סוג, חוסר יציבות נפשית או זלזול באחרים.',
+      wants_to_know_about_him: 'איך אתה מתמודד עם כעס, מה משמח אותך ביומיום, מה מקום התורה בחייך, ואיזה אבא אתה חולם להיות.',
+      crucial_facts_her: 'בריאה לחלוטין ברוך השם, מגיעה ממשפחה חמה ותומכת, מחפשת קשר תכליתי וטהור לחתונה מתוך רצון אמיתי לבנות בית של תורה וחסד.',
+      dating_pace: 'מהיר ותכליתי (חודש עד 3 חודשים)'
     };
 
     for (let key in sample) {
@@ -563,64 +503,64 @@ document.addEventListener('DOMContentLoaded', () => {
     checkConditionals();
     saveToLocalStorage();
     updateLiveCard();
-    showToast('הנתונים לדוגמה מולאו בהצלחה!');
+    showToast('הנתונים לדוגמה עבור המועמדת מולאו בהצלחה!');
   }
 
   // WhatsApp Export
   function exportToWhatsApp() {
     const data = getFormData();
-    const fullName = `${data.first_name || ''} ${data.last_name || ''}`.trim() || 'מועמד לשידוכים';
+    const fullName = `${data.first_name || ''} ${data.last_name || ''}`.trim() || 'מועמדת לשידוכים';
     
-    let text = `*בס"ד | כרטיס מועמד לשידוכים - בעזרת ה'*\n`;
+    let text = `*בס"ד | שאלון בירור והתאמה לשידוכים - מועמדת*\n`;
     text += `*${fullName}*\n\n`;
     
-    text += `👤 *פרטים אישיים:*\n`;
-    text += `• סטטוס: ${data.marital_status || 'רווק'}\n`;
+    text += `👤 *פרטים אישיים ורקע:*\n`;
+    text += `• סטטוס: ${data.marital_status || 'רווקה'}\n`;
     text += `• גיל: ${data.age || '-'}\n`;
-    text += `• גובה: ${data.height || '-'}\n`;
     text += `• עיר מגורים: ${data.city || '-'}\n`;
+    text += `• גובה: ${data.height || '-'}\n`;
+    text += `• עדה / מוצא: ${data.ethnicity || '-'}\n`;
     text += `• טלפון: ${data.phone || '-'}\n`;
-    if (data.ethnicity) text += `• מוצא / עדה: ${data.ethnicity}\n`;
-    if (data.profession) text += `• מקצוע / עיסוק: ${data.profession}\n`;
-    if (data.languages) text += `• שפות: ${data.languages}\n`;
+    if (data.occupation_aspiration) text += `• עיסוק ושאיפות: ${data.occupation_aspiration}\n`;
+    if (data.teshuva_journey) text += `• רקע ומסלול חיים: ${data.teshuva_journey}\n`;
     
-    text += `\n📖 *עולם התורה והרוח:*\n`;
-    text += `• זמן בתשובה: ${data.teshuva_time || '-'}\n`;
-    text += `• קובע עתים לתורה: ${data.sets_torah_time || '-'}${data.torah_frequency ? ' (' + data.torah_frequency + ')' : ''}\n`;
-    if (data.rabbi_name) text += `• רב: ${data.rabbi_name}\n`;
-    if (data.community) text += `• קהילה: ${data.community}\n`;
-    text += `• שמירת נגיעה: ${data.shomer_negiah || '-'}${data.negiah_time ? ' (' + data.negiah_time + ')' : ''}\n`;
-    text += `• שבת וכשרות: ${data.shabbat_kashrut || 'שמירה מלאה'}\n`;
+    text += `\n📖 *השקפה, תורה וקדושת הבית:*\n`;
+    if (data.husband_torah_aspiration) text += `• שאיפה מתורת הבעל: ${data.husband_torah_aspiration}\n`;
+    if (data.head_covering_preference) text += `• כיסוי ראש: ${data.head_covering_preference}\n`;
+    if (data.modesty_style) text += `• קו צניעות: ${data.modesty_style}\n`;
+    if (data.guiding_rabbi) text += `• רב / קהילה: ${data.guiding_rabbi}\n`;
     
-    text += `\n✨ *תכונות, אופי ומידות:*\n`;
-    if (data.trait_1 || data.trait_2 || data.trait_3) {
-      text += `• תכונות מאפיינות: 1. ${data.trait_1 || '-'} | 2. ${data.trait_2 || '-'} | 3. ${data.trait_3 || '-'}\n`;
-    }
-    if (data.trait_loved) text += `• מידה אהובה: ${data.trait_loved}\n`;
-    if (data.trait_to_improve) text += `• מידה בעבודה: ${data.trait_to_improve}\n`;
-    if (data.financial_conduct) text += `• התנהלות כלכלית: ${data.financial_conduct}\n`;
-    if (data.flexibility_compromise) text += `• גמישות וויתור: ${data.flexibility_compromise}\n`;
-    if (data.gratitude_expression) text += `• הכרת הטוב: ${data.gratitude_expression}\n`;
+    text += `\n🍽️ *כשרות ושבת קודש:*\n`;
+    if (data.home_kashrut) text += `• כשרות בבית: ${data.home_kashrut}\n`;
+    if (data.outside_kashrut) text += `• אכילה בחוץ: ${data.outside_kashrut}\n`;
+    if (data.shabbat_atmosphere) text += `• שולחן שבת: ${data.shabbat_atmosphere}\n`;
+    if (data.husband_customs) text += `• מנהגי הבעל: ${data.husband_customs}\n`;
+    
+    text += `\n🏡 *ניהול בית, כלכלה וטכנולוגיה:*\n`;
+    if (data.financial_outlook) text += `• גישה כלכלית: ${data.financial_outlook}\n`;
+    if (data.chores_expectations) text += `• שותפות הבעל במטלות: ${data.chores_expectations}\n`;
+    if (data.tech_screens_policy) text += `• אינטרנט ומסכים: ${data.tech_screens_policy}\n`;
+    if (data.hospitality_preference) text += `• אירוח: ${data.hospitality_preference}\n`;
+    
+    text += `\n👶 *חינוך ילדים:*\n`;
+    if (data.kids_schooling_type) text += `• מוסדות חינוך: ${data.kids_schooling_type}\n`;
+    if (data.parenting_philosophy) text += `• קו חינוכי: ${data.parenting_philosophy}\n`;
+    
+    text += `\n❤️ *זוגיות, שלום בית ומידות:*\n`;
+    if (data.husband_role_expectation) text += `• ציפייה מהבעל: ${data.husband_role_expectation}\n`;
+    if (data.reconciliation_approach) text += `• התנהלות בפיוס וכעס: ${data.reconciliation_approach}\n`;
+    if (data.love_language) text += `• שפת אהבה: ${data.love_language}\n`;
+    if (data.inlaws_boundaries) text += `• גבולות מול משפחות: ${data.inlaws_boundaries}\n`;
 
-    text += `\n❤️ *זוגיות ותקשורת:*\n`;
-    if (data.primary_love_language) text += `• שפת אהבה: ${data.primary_love_language}\n`;
-    if (data.conflict_reaction) text += `• פתרון ויכוחים: ${data.conflict_reaction}\n`;
-    if (data.household_sharing) text += `• שותפות בבית: ${data.household_sharing}\n`;
-    if (data.personal_space) text += `• מרחב אישי מול יחד: ${data.personal_space}\n`;
-    
-    if (data.looking_for_in_wife) {
-      text += `\n🔍 *מה מחפש באישה:*\n${data.looking_for_in_wife}\n`;
-    }
-    
-    if (data.shalom_bayit) {
-      text += `\n🕊️ *מה חשוב בשלום בית:*\n${data.shalom_bayit}\n`;
-    }
-
-    if (data.crucial_facts) {
-      text += `\n⚠️ *דברים שחשוב לדעת מראש:*\n${data.crucial_facts}\n`;
+    if (data.red_lines) {
+      text += `\n⛔ *קווים אדומים:*\n${data.red_lines}\n`;
     }
 
-    text += `\n_לבירורים ופרטים נוספים ניתן לפנות בכבוד._`;
+    if (data.crucial_facts_her) {
+      text += `\n📌 *דברים שחשוב לדעת:*\n${data.crucial_facts_her}\n`;
+    }
+
+    text += `\n_לבירורים ופרטים נוספים ניתן לפנות בכבוד וצניעות._`;
 
     // Copy to clipboard
     if (navigator.clipboard) {
@@ -629,7 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }).catch(() => {});
     }
 
-    // Open WhatsApp Web or mobile app
+    // Open WhatsApp
     const encoded = encodeURIComponent(text);
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encoded}`;
     window.open(whatsappUrl, '_blank');
@@ -638,7 +578,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Copy Full Profile Text
   function copyFullProfileText() {
     const data = getFormData();
-    let text = `טופס מועמדות לשידוכים בעזרת ה'\n====================================\n`;
+    let text = `שאלון עומק לשידוכים - תשובות המועמדת\n====================================\n`;
     for (let key in data) {
       if (key === 'photo_base64') continue;
       if (data[key]) {
@@ -647,7 +587,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (navigator.clipboard) {
       navigator.clipboard.writeText(text).then(() => {
-        showToast('כל פרטי הטופס הועתקו ללוח בהצלחה!');
+        showToast('כל פרטי השאלון הועתקו ללוח בהצלחה!');
       });
     }
   }
