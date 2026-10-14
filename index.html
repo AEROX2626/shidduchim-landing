@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>טופס מועמדות לשידוכים בעזרת ה' | שאלון אינטראקטיבי</title>
+  
+  <!-- Google Fonts for Modern, High-End Hebrew Typography (Rubik + Assistant) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome for crisp icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Decorative background elements -->
+  <div class="bg-pattern" aria-hidden="true"></div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <span class="bsd">בס"ד</span>
+        <div class="brand-text">
+          <span class="brand-title">בניין עדי עד</span>
+          <span class="brand-subtitle">פלטפורמה מכבדת לשידוכים ובירור התאמה</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button type="button" class="btn btn-outline btn-sm" id="btn-sample-data" title="מלא נתונים לדוגמה לבדיקת הדף">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span>מלא לדוגמה</span>
+        </button>
+        <button type="button" class="btn btn-outline btn-sm" id="btn-toggle-view" title="החלף בין מצב שלבים למסמך מלא">
+          <i class="fa-solid fa-table-columns"></i>
+          <span id="view-mode-text">תצוגת מסמך מלא</span>
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" id="btn-open-preview" title="צפה בכרטיס השידוכים שנוצר">
+          <i class="fa-solid fa-id-card"></i>
+          <span>כרטיס השידוך</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-content">
+      <div class="ornament-top">
+        <svg width="120" height="24" viewBox="0 0 120 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M60 2L64 9L71 10L66 15L67 22L60 18L53 22L54 15L49 10L56 9L60 2Z" fill="#C59B27"/>
+          <path d="M40 12C28 12 16 7 2 12M80 12C92 12 104 7 118 12" stroke="#C59B27" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="15" cy="12" r="2" fill="#C59B27"/>
+          <circle cx="105" cy="12" r="2" fill="#C59B27"/>
+        </svg>
+      </div>
+      <h1 class="page-title">טופס מועמדות לבעלי בעזרת ה'</h1>
+      <p class="page-subtitle">למילוי בכנות, בכבוד ומתוך רצון לבנות בית נאמן בישראל</p>
+      
+      <div class="form-meta-badges">
+        <span class="meta-badge"><i class="fa-solid fa-lock"></i> מילוי דיסקרטי ומאובטח</span>
+        <span class="meta-badge"><i class="fa-solid fa-cloud-arrow-up"></i> שמירה אוטומטית מקומית</span>
+        <span class="meta-badge"><i class="fa-solid fa-clock"></i> כ-8 דקות מילוי מעמיק</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Container -->
+  <main class="container main-content">
+    
+    <!-- Wizard Progress Tracker (visible in Step Mode) -->
+    <div class="wizard-tracker-card" id="wizard-tracker">
+      <div class="tracker-header">
+        <div class="step-indicator-text">
+          <span class="step-num-badge">שלב <span id="current-step-display">1</span> מתוך 7</span>
+          <span class="step-title-display" id="step-title-display">פרטים אישיים ותמונה</span>
+        </div>
+        <div class="save-status" id="save-status" aria-live="polite">
+          <i class="fa-solid fa-check"></i> נשמר מקומית
+        </div>
+      </div>
+      
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progress-bar-fill" style="width: 14.28%;"></div>
+      </div>
+
+      <nav class="steps-nav" aria-label="שלבי השאלון">
+        <button type="button" class="step-btn active" data-step="1">
+          <span class="step-circle">1</span>
+          <span class="step-label">פרטים אישיים</span>
+        </button>
+        <button type="button" class="step-btn" data-step="2">
+          <span class="step-circle">2</span>
+          <span class="step-label">סטטוס ומשפחה</span>
+        </button>
+        <button type="button" class="step-btn" data-step="3">
+          <span class="step-circle">3</span>
+          <span class="step-label">עולם התורה</span>
+        </button>
+        <button type="button" class="step-btn" data-step="4">
+          <span class="step-circle">4</span>
+          <span class="step-label">נגיעה וצניעות</span>
+        </button>
+        <button type="button" class="step-btn" data-step="5">
+          <span class="step-circle">5</span>
+          <span class="step-label">אופי ובניית בית</span>
+        </button>
+        <button type="button" class="step-btn" data-step="6">
+          <span class="step-circle">6</span>
+          <span class="step-label">מידות ונפש</span>
+        </button>
+        <button type="button" class="step-btn" data-step="7">
+          <span class="step-circle">7</span>
+          <span class="step-label">התאמה לשידוך</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- The Questionnaire Form -->
+    <form id="shidduch-form" class="shidduch-form mode-wizard" novalidate autocomplete="on">
+      
+      <!-- ============================================== -->
+      <!-- SECTION 1: פרטים אישיים (Personal Details) -->
+      <!-- ============================================== -->
+      <section class="form-section-card" data-step-index="1" id="section-personal">
+        <div class="section-card-header">
+          <div class="header-icon"><i class="fa-solid fa-user"></i></div>
+          <div class="header-titles">
+            <h2 class="section-title">פרטים אישיים</h2>
+            <p class="section-desc">הכרות ראשונית, פרטי קשר ותמונה עדכנית</p>
+          </div>
+        </div>
+
+        <div class="section-body">
+          <!-- Photo Upload Area -->
+          <div class="photo-upload-wrapper">
+            <div class="photo-upload-box" id="photo-dropzone" tabindex="0" role="button" aria-label="העלאת תמונה עדכנית">
+              <input type="file" id="input-photo" accept="image/*" class="visually-hidden">
+              <div class="photo-preview-container" id="photo-preview-wrap">
+                <div class="photo-placeholder-content" id="photo-placeholder">
+                  <div class="camera-icon-bubble">
+                    <i class="fa-solid fa-camera"></i>
+                  </div>
+                  <span class="upload-title">תמונה עדכנית</span>
+                  <span class="upload-hint">גרור לכאן או לחץ להעלאה (תמונה צנועה וברורה)</span>
+                </div>
+                <img id="photo-img-preview" src="" alt="תצוגה מקדימה של תמונת המועמד" class="photo-img-element hidden">
+              </div>
+              <button type="button" class="btn-remove-photo hidden" id="btn-remove-photo" title="הסר תמונה" aria-label="הסר תמונה">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+            <div class="photo-guidance">
+              <span class="guidance-title"><i class="fa-solid fa-circle-info"></i> הנחיה לתמונה:</span>
+              <p>מומלץ לבחור תמונה עדכנית מהשנה האחרונה, מוארת, עם חיוך טבעי ולבוש מכבד המייצג את אורח חייך היומיומי.</p>
+            </div>
+          </div>
+
+          <div class="form-grid grid-cols-2">
+            <!-- First Name -->
+            <div class="form-group">
+              <label for="first-name" class="form-label required">שם פרטי</label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-solid fa-signature"></i>
+                <input type="text" id="first-name" name="first_name" class="form-control" placeholder="לדוגמה: יוסף" required autocomplete="given-name">
+              </div>
+            </div>
+
+            <!-- Last Name -->
+            <div class="form-group">
+              <label for="last-name" class="form-label required">שם משפחה</label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-regular fa-user"></i>
+                <input type="text" id="last-name" name="last_name" class="form-control" placeholder="לדוגמה: כהן" required autocomplete="family-name">
+              </div>
+            </div>
+
+            <!-- Age & Date of Birth -->
+            <div class="form-group">
+              <label for="age" class="form-label required">גיל</label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-solid fa-cake-candles"></i>
+                <input type="number" id="age" name="age" min="18" max="99" class="form-control" placeholder="לדוגמה: 28" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="birth-date" class="form-label">תאריך לידה (עברי או לועזי)</label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-regular fa-calendar"></i>
+                <input type="text" id="birth-date" name="birth_date" class="form-control" placeholder="לדוגמה: כ&quot;ג אייר תשנ&quot;ו / 12/05/1996" autocomplete="bday">
+              </div>
+            </div>
+
+            <!-- Height -->
+            <div class="form-group">
+              <label for="height" class="form-label">גובה (ס"מ)</label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-solid fa-ruler-vertical"></i>
+                <input type="text" id="height" name="height" class="form-control" placeholder="לדוגמה: 1.78 מ' / 178 ס&quot;מ">
+              </div>
+            </div>
+
+            <!-- City of Residence -->
+            <div class="form-group">
+              <label for="city" class="form-label required">עיר מגורים</label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-solid fa-location-dot"></i>
+                <input type="text" id="city" name="city" class="form-control" placeholder="לדוגמה: ירושלים, צפת, בני ברק" required autocomplete="address-level2">
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="form-group">
+              <label for="phone" class="form-label required">טלפון נייד</label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-solid fa-phone"></i>
+                <input type="tel" id="phone" name="phone" class="form-control" placeholder="050-0000000" dir="ltr" style="text-align: right;" required autocomplete="tel">
+              </div>
+            </div>
+
+            <!-- Ethnic Origin / Community -->
+            <div class="form-group">
+              <label for="ethnicity" class="form-label">עדה / מוצא</label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-solid fa-earth-middle-east"></i>
+                <input type="text" id="ethnicity" name="ethnicity" class="form-control" placeholder="לדוגמה: ספרדי / אשכנזי / תימני / מעורב">
+              </div>
+            </div>
+
+            <!-- Languages Spoken -->
+            <div class="form-group full-width">
+              <label for="languages" class="form-label">שפות</label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-solid fa-language"></i>
+                <input type="text" id="languages" name="languages" class="form-control" placeholder="לדוגמה: עברית, אנגלית שוטפת, צרפתית">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-footer">
+          <div class="step-nav-buttons">
+            <span class="step-guide-hint">הפרטים נשמרים אוטומטית בדפדפן</span>
+            <button type="button" class="btn btn-primary btn-next-step" data-target-step="2">
+              <span>המשך לשלב הבא: סטטוס ומשפחה</span>
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- SECTION 2: סטטוס ומשפחה (Status & Family) -->
+      <!-- ============================================== -->
+      <section class="form-section-card" data-step-index="2" id="section-family">
+        <div class="section-card-header">
+          <div class="header-icon"><i class="fa-solid fa-people-roof"></i></div>
+          <div class="header-titles">
+            <h2 class="section-title">סטטוס ומשפחה</h2>
+            <p class="section-desc">מצב אישי, ילדים וקשר עם בני המשפחה</p>
+          </div>
+        </div>
+
+        <div class="section-body">
+          <div class="form-grid">
+            
+            <!-- Marital Status -->
+            <div class="form-group full-width">
+              <label class="form-label required">סטטוס אישי</label>
+              <div class="segmented-control status-selector" role="radiogroup" aria-label="סטטוס אישי">
+                <label class="segment-item">
+                  <input type="radio" name="marital_status" value="רווק" checked>
+                  <span class="segment-card">
+                    <i class="fa-regular fa-user"></i>
+                    <strong>רווק</strong>
+                  </span>
+                </label>
+                <label class="segment-item">
+                  <input type="radio" name="marital_status" value="גרוש">
+                  <span class="segment-card">
+                    <i class="fa-solid fa-link-slash"></i>
+                    <strong>גרוש</strong>
+                  </span>
+                </label>
+                <label class="segment-item">
+                  <input type="radio" name="marital_status" value="אלמן">
+                  <span class="segment-card">
+                    <i class="fa-solid fa-heart-crack"></i>
+                    <strong>אלמן</strong>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Children -->
+            <div class="form-group full-width">
+              <label class="form-label">ילדים</label>
+              <div class="radio-cards-row">
+                <label class="radio-card-mini">
+                  <input type="radio" name="has_children" value="אין" checked>
+                  <span class="radio-card-box">
+                    <i class="fa-solid fa-ban"></i>
+                    <span>אין ילדים</span>
+                  </span>
+                </label>
+                <label class="radio-card-mini">
+                  <input type="radio" name="has_children" value="יש">
+                  <span class="radio-card-box">
+                    <i class="fa-solid fa-children"></i>
+                    <span>יש ילדים</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Conditional Children Details -->
+            <div class="conditional-fields-box hidden" id="box-children-details">
+              <div class="form-grid grid-cols-2">
+                <div class="form-group">
+                  <label for="children-count" class="form-label">כמה ילדים ובאילו גילאים?</label>
+                  <div class="input-wrapper">
+                    <i class="input-icon fa-solid fa-child"></i>
+                    <input type="text" id="children-count" name="children_count" class="form-control" placeholder="לדוגמה: 2 (בני 4 ו-7)">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">האם יש ילדים במשמורתך?</label>
+                  <div class="chip-choice-group">
+                    <label class="chip-choice">
+                      <input type="radio" name="children_in_custody" value="כן">
+                      <span class="chip-body">כן</span>
+                    </label>
+                    <label class="chip-choice">
+                      <input type="radio" name="children_in_custody" value="לא" checked>
+                      <span class="chip-body">לא</span>
+                    </label>
+                    <label class="chip-choice">
+                      <input type="radio" name="children_in_custody" value="משמורת משותפת">
+                      <span class="chip-body">משמורת משותפת / הסדרי שהות</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Relationship with Family -->
+            <div class="form-group full-width">
+              <label for="family-relation" class="form-label">קשר עם המשפחה</label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-solid fa-hands-holding-child"></i>
+                <input type="text" id="family-relation" name="family_relation" class="form-control" placeholder="לדוגמה: קשר חם וקרוב, יחסים טובים ומכבדים, משפחה תומכת...">
+              </div>
+              <small class="field-hint">תיאור קצר על הקשר והיחסים עם ההורים והאחים</small>
+            </div>
+
+            <!-- Family involved in matchmaking process -->
+            <div class="form-group full-width">
+              <label class="form-label">האם המשפחה מעורבת בתהליך השידוכים?</label>
+              <div class="radio-cards-row">
+                <label class="radio-card-mini">
+                  <input type="radio" name="family_involved" value="כן">
+                  <span class="radio-card-box">
+                    <i class="fa-solid fa-check"></i>
+                    <span>כן, מעורבים</span>
+                  </span>
+                </label>
+                <label class="radio-card-mini">
+                  <input type="radio" name="family_involved" value="לא" checked>
+                  <span class="radio-card-box">
+                    <i class="fa-solid fa-xmark"></i>
+                    <span>לא / עצמאי בתהליך</span>
+                  </span>
+                </label>
+                <label class="radio-card-mini">
+                  <input type="radio" name="family_involved" value="חלקית">
+                  <span class="radio-card-box">
+                    <i class="fa-solid fa-arrows-split-up-and-left"></i>
+                    <span>מעודכנים חלקית / בתמיכה</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="section-footer">
+          <div class="step-nav-buttons">
+            <button type="button" class="btn btn-secondary btn-prev-step" data-target-step="1">
+              <i class="fa-solid fa-arrow-right"></i>
+              <span>חזור לשלב הקודם</span>
+            </button>
+            <button type="button" class="btn btn-primary btn-next-step" data-target-step="3">
+              <span>המשך לשלב הבא: עולם התורה והאמונה</span>
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- SECTION 3: עולם התורה והאמונה (World of Torah & Faith) -->
+      <!-- ============================================== -->
+      <section class="form-section-card" data-step-index="3" id="section-torah">
+        <div class="section-card-header">
+          <div class="header-icon"><i class="fa-solid fa-book-quran"></i></div>
+          <div class="header-titles">
+            <h2 class="section-title">עולם התורה והאמונה</h2>
+            <p class="section-desc">מסע התשובה, רב, קהילה וסדר יום רוחני</p>
+          </div>
+        </div>
+
+        <div class="section-body">
+          <div class="form-grid grid-cols-2">
+            
+            <!-- How long in teshuva -->
+            <div class="form-group">
+              <label for="teshuva-time" class="form-label required">כמה זמן אתה בתשובה?</label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-solid fa-hourglass-half"></i>
+                <input type="text" id="teshuva-time" name="teshuva_time" class="form-control" placeholder="לדוגמה: 4 שנים / שנתיים וחצי / מתחזק כ-5 שנים" required>
+              </div>
+            </div>
+
+            <!-- What led to strengthening -->
+            <div class="form-group">
+              <label for="teshuva-trigger" class="form-label">מה גרם לך להתחזק?</label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-solid fa-fire"></i>
+                <input type="text" id="teshuva-trigger" name="teshuva_trigger" class="form-control" placeholder="לדוגמה: חיפוש משמעות, סמינר, שיעורי תורה, משבר שפתח את הלב">
+              </div>
+            </div>
+
+            <!-- Fixed times for Torah study -->
+            <div class="form-group full-width">
+              <label class="form-label required">האם אתה קובע עתים לתורה?</label>
+              <div class="radio-cards-row">
+                <label class="radio-card-mini">
+                  <input type="radio" name="sets_torah_time" value="כן" checked>
+                  <span class="radio-card-box">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>כן, קובע עתים</span>
+                  </span>
+                </label>
+                <label class="radio-card-mini">
+                  <input type="radio" name="sets_torah_time" value="לא">
+                  <span class="radio-card-box">
+                    <i class="fa-solid fa-xmark"></i>
+                    <span>לא באופן קבוע</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Times per week if yes -->
+            <div class="form-group full-width" id="box-torah-frequency">
+              <label for="torah-frequency" class="form-label">אם כן, כמה פעמים בשבוע ובאיזו מסגרת?</label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-solid fa-calendar-days"></i>
+                <input type="text" id="torah-frequency" name="torah_frequency" class="form-control" placeholder="לדוגמה: כל יום שעה בערב, חברותא פעמיים בשבוע, כולל ערב">
+              </div>
+            </div>
+
+            <!-- Rabbi -->
+            <div class="form-group">
+              <label for="rabbi-name" class="form-label">מי הרב שלך?</label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-solid fa-user-tie"></i>
+                <input type="text" id="rabbi-name" name="rabbi_name" class="form-control" placeholder="שם הרב ומקום מושבו, האם מתייעץ איתו בקביעות">
+              </div>
+            </div>
+
+            <!-- Community -->
+            <div class="form-group">
+              <label for="community" class="form-label">לאיזו קהילה אתה משתייך?</label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-solid fa-synagogue"></i>
+                <input type="text" id="community" name="community" class="form-control" placeholder="לדוגמה: ברסלב, חב&quot;ד, ספרדי בני תורה, כלל חסידי, מקומי">
+              </div>
+            </div>
+
+            <!-- Travel to Uman for Rosh Hashanah -->
+            <div class="form-group full-width">
+              <label class="form-label">האם אתה נוסע לאומן בראש השנה?</label>
+              <div class="chip-choice-group">
+                <label class="chip-choice">
+                  <input type="radio" name="travel_uman" value="כן, כל שנה בקביעות">
+                  <span class="chip-body"><i class="fa-solid fa-plane-departure"></i> כן, כל שנה</span>
+                </label>
+                <label class="chip-choice">
+                  <input type="radio" name="travel_uman" value="כן, לפעמים / תלוי">
+                  <span class="chip-body">לפעמים / לפי עניין</span>
+                </label>
+                <label class="chip-choice">
+                  <input type="radio" name="travel_uman" value="לא" checked>
+                  <span class="chip-body"><i class="fa-solid fa-house"></i> לא</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Spiritual Daily Routine -->
+            <div class="form-group full-width">
+              <label for="spiritual-routine" class="form-label">איך נראה סדר היום הרוחני שלך?</label>
+              <div class="input-wrapper">
+                <textarea id="spiritual-routine" name="spiritual_routine" rows="3" class="form-control" placeholder="לדוגמה: תפילת שחרית במניין, שיעור יומי / דף יומי, מנחה ומעריב, התבודדות, קריאת תהילים..."></textarea>
+              </div>
+            </div>
+
+            <!-- Shabbat and Kashrut -->
+            <div class="form-group full-width">
+              <label for="shabbat-kashrut" class="form-label">שמירת שבת וכשרות</label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-solid fa-utensils"></i>
+                <input type="text" id="shabbat-kashrut" name="shabbat_kashrut" class="form-control" placeholder="לדוגמה: שבת כהלכתה מלאה, כשרות מהדרין / בד&quot;ץ העדה החרדית / רובין / בית יוסף">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="section-footer">
+          <div class="step-nav-buttons">
+            <button type="button" class="btn btn-secondary btn-prev-step" data-target-step="2">
+              <i class="fa-solid fa-arrow-right"></i>
+              <span>חזור לסטטוס ומשפחה</span>
+            </button>
+            <button type="button" class="btn btn-primary btn-next-step" data-target-step="4">
+              <span>המשך לשלב הבא: שמירת נגיעה וצניעות</span>
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- SECTION 4: שמירת נגיעה וצניעות (Shmirat Negiah & Modesty) -->
+      <!-- ============================================== -->
+      <section class="form-section-card" data-step-index="4" id="section-negiah">
+        <div class="section-card-header">
+          <div class="header-icon"><i class="fa-solid fa-hand-holding-heart"></i></div>
+          <div class="header-titles">
+            <h2 class="section-title">שמירת נגיעה וצניעות</h2>
+            <p class="section-desc">הקפדה על גדרי קדושה וגבולות בתקופת ההיכרות</p>
+          </div>
+        </div>
+
+        <div class="section-body">
+          <div class="form-grid">
+            
+            <!-- Shmirat Negiah -->
+            <div class="form-group full-width">
+              <label class="form-label required">האם אתה שומר נגיעה?</label>
+              <div class="radio-cards-row">
+                <label class="radio-card-mini">
+                  <input type="radio" name="shomer_negiah" value="כן" checked>
+                  <span class="radio-card-box">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>כן, שומר נגיעה בהקפדה</span>
+                  </span>
+                </label>
+                <label class="radio-card-mini">
+                  <input type="radio" name="shomer_negiah" value="לא">
+                  <span class="radio-card-box">
+                    <i class="fa-solid fa-xmark"></i>
+                    <span>לא / בתהליך</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- If yes, how long? -->
+            <div class="form-group full-width" id="box-negiah-time">
+              <label for="negiah-time" class="form-label">אם כן, כמה זמן?</label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-solid fa-clock-rotate-left"></i>
+                <input type="text" id="negiah-time" name="negiah_time" class="form-control" placeholder="לדוגמה: שנתיים / מיום החזרה בתשובה / חצי שנה">
+              </div>
+            </div>
+
+            <!-- Boundaries during dating -->
+            <div class="form-group full-width">
+              <label for="dating-boundaries" class="form-label required">מה הגבולות החשובים לך בתקופת ההיכרות?</label>
+              <div class="input-wrapper">
+                <textarea id="dating-boundaries" name="dating_boundaries" rows="3" class="form-control" placeholder="לדוגמה: פגישות במקומות ציבוריים ומכבדים, ללא ייחוד, שמירה מוחלטת על נגיעה, תקשורת עניינית ומכבדת..." required></textarea>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="section-footer">
+          <div class="step-nav-buttons">
+            <button type="button" class="btn btn-secondary btn-prev-step" data-target-step="3">
+              <i class="fa-solid fa-arrow-right"></i>
+              <span>חזור לעולם התורה</span>
+            </button>
+            <button type="button" class="btn btn-primary btn-next-step" data-target-step="5">
+              <span>המשך לשלב הבא: אופי, זוגיות ובניית בית</span>
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- SECTION 5: אופי, זוגיות ובניית בית (Character & Marriage) -->
+      <!-- ============================================== -->
+      <section class="form-section-card" data-step-index="5" id="section-marriage">
+        <div class="section-card-header">
+          <div class="header-icon"><i class="fa-solid fa-house-chimney-window"></i></div>
+          <div class="header-titles">
+            <h2 class="section-title">אופי, זוגיות ובניית בית</h2>
+            <p class="section-desc">תכונות אופי, ציפיות מהקשר, תקשורת, שותפות ועתיד</p>
+          </div>
+        </div>
+
+        <div class="section-body">
+          <div class="form-grid">
+            
+            <!-- 3 Defining Traits -->
+            <div class="form-group full-width">
+              <label class="form-label required">שלוש תכונות שמאפיינות אותך:</label>
+              <div class="numbered-traits-inputs">
+                <div class="trait-input-row">
+                  <span class="trait-number">1.</span>
+                  <input type="text" id="trait-1" name="trait_1" class="form-control" placeholder="תכונה ראשונה (למשל: סבלני, שמח, אחראי, בעל חוש הומור)" required>
+                </div>
+                <div class="trait-input-row">
+                  <span class="trait-number">2.</span>
+                  <input type="text" id="trait-2" name="trait_2" class="form-control" placeholder="תכונה שנייה (למשל: איש שיחה עמוק, מקשיב, אכפתי, יוזם)" required>
+                </div>
+                <div class="trait-input-row">
+                  <span class="trait-number">3.</span>
+                  <input type="text" id="trait-3" name="trait_3" class="form-control" placeholder="תכונה שלישית (למשל: רגיש, בעל לב טוב, פרקטי, חרוץ)" required>
+                </div>
+              </div>
+            </div>
+
+            <!-- What are you looking for in a woman/wife -->
+            <div class="form-group full-width">
+              <label for="looking-for-in-wife" class="form-label required">מה אתה מחפש באישה?</label>
+              <div class="input-wrapper">
+                <textarea id="looking-for-in-wife" name="looking_for_in_wife" rows="3" class="form-control" placeholder="תאר את תכונות האופי, המראה הרוחני והפנימי, ערכים משותפים שחשובים לך..." required></textarea>
+              </div>
+            </div>
+
+            <!-- What is important to you in Shalom Bayit -->
+            <div class="form-group full-width">
+              <label for="shalom-bayit" class="form-label required">מה חשוב לך בשלום בית?</label>
+              <div class="input-wrapper">
+                <textarea id="shalom-bayit" name="shalom_bayit" rows="2" class="form-control" placeholder="לדוגמה: תקשורת פתוחה, ויתור הדדי, פרגון ומילים טובות, לדעת להקשיב בלי לשפוט..." required></textarea>
+              </div>
+            </div>
+
+            <!-- SUBSECTION: שאלות עומק על זוגיות ותקשורת -->
+            <div class="form-group full-width sub-category-banner">
+              <div class="banner-pill"><i class="fa-solid fa-heart-circle-bolt"></i> דינמיקה זוגית ותקשורת רגשית</div>
+            </div>
+
+            <!-- Conflict & Disagreement Style -->
+            <div class="form-group full-width">
+              <label class="form-label required">כשמתעוררת אי-הסכמה או ויכוח – מה דפוס התגובה הטבעי שלך?</label>
+              <div class="chip-choice-group">
+                <label class="chip-choice">
+                  <input type="radio" name="conflict_reaction" value="צריך פסק זמן להירגע ואז מדבר בנחת" checked>
+                  <span class="chip-body"><i class="fa-regular fa-clock"></i> לוקח פסק זמן להירגע ואז משוחח בנחת</span>
+                </label>
+                <label class="chip-choice">
+                  <input type="radio" name="conflict_reaction" value="מעדיף ללבן הכל מיד">
+                  <span class="chip-body"><i class="fa-solid fa-bolt"></i> מעדיף ללבן ולפתור מיד בלי לדחות</span>
+                </label>
+                <label class="chip-choice">
+                  <input type="radio" name="conflict_reaction" value="כותב ומסדר מחשבות">
+                  <span class="chip-body"><i class="fa-solid fa-pen-nib"></i> מעבד את המחשבות בכתב תחילה</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Love Languages -->
+            <div class="form-group full-width">
+              <label class="form-label required">מהי "שפת האהבה" שהכי מחברת אותך? <span class="label-subhint">(מה גורם לך להרגיש אהוב, מוערך וקרוב?)</span></label>
+              <div class="chip-choice-group">
+                <label class="chip-choice">
+                  <input type="radio" name="primary_love_language" value="מילות הערכה, מחמאות וחיזוק" checked>
+                  <span class="chip-body"><i class="fa-solid fa-comment-dots"></i> מילות הערכה ומחמאות מכל הלב</span>
+                </label>
+                <label class="chip-choice">
+                  <input type="radio" name="primary_love_language" value="זמן איכות והקשבה מעמיקה">
+                  <span class="chip-body"><i class="fa-solid fa-mug-hot"></i> זמן איכות, שיחה שקטה והקשבה</span>
+                </label>
+                <label class="chip-choice">
+                  <input type="radio" name="primary_love_language" value="עזרה במעשים ונתינה ביומיום">
+                  <span class="chip-body"><i class="fa-solid fa-hands-holding"></i> עזרה במעשים, שותפות ונתינה</span>
+                </label>
+                <label class="chip-choice">
+                  <input type="radio" name="primary_love_language" value="מחוות קטנות ותשומת לב אישית">
+                  <span class="chip-body"><i class="fa-solid fa-gift"></i> מחוות ותשומת לב קטנה בשגרה</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Household Sharing & Roles -->
+            <div class="form-group full-width">
+              <label class="form-label required">איך אתה רואה את המעורבות שלך במטלות הבית והשגרה? <span class="label-subhint">(ניקיון, קניות, בישול, טיפול שוטף)</span></label>
+              <div class="chip-choice-group">
+                <label class="chip-choice">
+                  <input type="radio" name="household_sharing" value="שותפות מלאה וטבעית בכל המטלות" checked>
+                  <span class="chip-body"><i class="fa-solid fa-handshake"></i> שותפות מלאה וחלוקה טבעית בכל התחומים</span>
+                </label>
+                <label class="chip-choice">
+                  <input type="radio" name="household_sharing" value="נרתם ועוזר בשמחה במה שצריך">
+                  <span class="chip-body"><i class="fa-solid fa-person-digging"></i> נרתם ועוזר בשמחה לפי מה שצריך</span>
+                </label>
+                <label class="chip-choice">
+                  <input type="radio" name="household_sharing" value="חלוקה גמישה לפי זמנים וחוזקות">
+                  <span class="chip-body"><i class="fa-solid fa-arrows-split-up-and-left"></i> חלוקה גמישה לפי לוחות זמנים וחוזקות אישיות</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Personal Space vs Togetherness -->
+            <div class="form-group full-width">
+              <label for="personal-space" class="form-label">מרחב אישי מול זמן זוגי</label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-solid fa-scale-unbalanced"></i>
+                <input type="text" id="personal-space" name="personal_space" class="form-control" placeholder="לדוגמה: חשוב לי שילוב בריא - זמן זוגי עשיר מדי יום לצד מרחב אישי ללימוד, חברים ותחביבים">
+              </div>
+              <small class="field-hint">כמה זמן אישי לעצמך דרוש לך בשגרה, ואיך אתה דואג לזמן איכות זוגי קבוע?</small>
+            </div>
+
+            <!-- Role of husband and wife in your eyes -->
+            <div class="form-group full-width">
+              <label for="roles-husband-wife" class="form-label">מה תפקיד הבעל והאישה בעיניך?</label>
+              <div class="input-wrapper">
+                <textarea id="roles-husband-wife" name="roles_husband_wife" rows="2" class="form-control" placeholder="ראיית השותפות, חלוקת האחריות, הובלה רוחנית, תמיכה הדדית..."></textarea>
+              </div>
+            </div>
+
+            <!-- SUBSECTION: פרקטיקה, מקצוע והרגלים -->
+            <div class="form-group full-width sub-category-banner">
+              <div class="banner-pill"><i class="fa-solid fa-briefcase"></i> התנהלות כלכלית, הרגלים ותוכניות</div>
+            </div>
+
+            <!-- Financial conduct -->
+            <div class="form-group full-width">
+              <label class="form-label required">איך אתה מתנהל כלכלית?</label>
+              <div class="chip-choice-group">
+                <label class="chip-choice">
+                  <input type="radio" name="financial_conduct" value="חסכן">
+                  <span class="chip-body"><i class="fa-solid fa-piggy-bank"></i> חסכן ומחושב</span>
+                </label>
+                <label class="chip-choice">
+                  <input type="radio" name="financial_conduct" value="מאוזן" checked>
+                  <span class="chip-body"><i class="fa-solid fa-scale-balanced"></i> מאוזן ושקול</span>
+                </label>
+                <label class="chip-choice">
+                  <input type="radio" name="financial_conduct" value="נדיב">
+                  <span class="chip-body"><i class="fa-solid fa-hand-holding-dollar"></i> נדיב ורחב לב</span>
+                </label>
+                <label class="chip-choice">
+                  <input type="radio" name="financial_conduct" value="אחר">
+                  <span class="chip-body"><i class="fa-solid fa-pen"></i> אחר</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-grid grid-cols-2 full-width">
+              <!-- Smoking / Alcohol / Healthy lifestyle -->
+              <div class="form-group">
+                <label for="lifestyle-habits" class="form-label">עישון / אלכוהול / אורח חיים בריא</label>
+                <div class="input-wrapper">
+                  <i class="input-icon fa-solid fa-heart-pulse"></i>
+                  <input type="text" id="lifestyle-habits" name="lifestyle_habits" class="form-control" placeholder="לדוגמה: לא מעשן כלל, יין בקידוש בלבד, מתאמן פעמיים בשבוע">
+                </div>
+              </div>
+
+              <!-- Hobbies -->
+              <div class="form-group">
+                <label for="hobbies" class="form-label">תחביבים ותחומי עניין</label>
+                <div class="input-wrapper">
+                  <i class="input-icon fa-solid fa-icons"></i>
+                  <input type="text" id="hobbies" name="hobbies" class="form-control" placeholder="לדוגמה: נגינה בגיטרה, קריאת ספרים, טיולי טבע, בישול">
+                </div>
+              </div>
+
+              <!-- Work & Profession -->
+              <div class="form-group">
+                <label for="profession" class="form-label required">עבודה ומקצוע</label>
+                <div class="input-wrapper">
+                  <i class="input-icon fa-solid fa-briefcase"></i>
+                  <input type="text" id="profession" name="profession" class="form-control" placeholder="לדוגמה: מתכנת תוכנה / עסק עצמאי / מחנך" required>
+                </div>
+              </div>
+
+              <!-- Education -->
+              <div class="form-group">
+                <label for="education" class="form-label">השכלה</label>
+                <div class="input-wrapper">
+                  <i class="input-icon fa-solid fa-graduation-cap"></i>
+                  <input type="text" id="education" name="education" class="form-control" placeholder="לדוגמה: תואר ראשון / לימודי תעודה / ישיבה">
+                </div>
+              </div>
+            </div>
+
+            <!-- Future Plans -->
+            <div class="form-group full-width">
+              <label for="future-plans" class="form-label">תוכניות לעתיד</label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-solid fa-compass"></i>
+                <input type="text" id="future-plans" name="future_plans" class="form-control" placeholder="שאיפות מקצועיות, קביעות בלימוד, מגורים ויעדים אישיים...">
+              </div>
+            </div>
+
+            <!-- What is important to you in raising children -->
+            <div class="form-group full-width">
+              <label for="raising-children" class="form-label">מה חשוב לך לגדל בו ילדים?</label>
+              <div class="input-wrapper">
+                <textarea id="raising-children" name="raising_children" rows="2" class="form-control" placeholder="איזה חינוך, ערכים, חום, תורה ואהבת הבריות תרצה להעניק בבית..."></textarea>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="section-footer">
+          <div class="step-nav-buttons">
+            <button type="button" class="btn btn-secondary btn-prev-step" data-target-step="4">
+              <i class="fa-solid fa-arrow-right"></i>
+              <span>חזור לשמירת נגיעה</span>
+            </button>
+            <button type="button" class="btn btn-primary btn-next-step" data-target-step="6">
+              <span>המשך לשלב הבא: מידות ועבודת הנפש</span>
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- SECTION 6: מידות ועבודת הנפש (Middot & Soul Work) -->
+      <!-- ============================================== -->
+      <section class="form-section-card" data-step-index="6" id="section-middot">
+        <div class="section-card-header">
+          <div class="header-icon"><i class="fa-solid fa-gem"></i></div>
+          <div class="header-titles">
+            <h2 class="section-title">מידות ועבודת הנפש</h2>
+            <p class="section-desc">מודעות עצמית, תיקון המידות, גמישות, ענווה והכרת הטוב</p>
+          </div>
+        </div>
+
+        <div class="section-body">
+          <div class="form-grid">
+            
+            <!-- Trait loved most -->
+            <div class="form-group full-width">
+              <label for="trait-loved" class="form-label required">איזו מידה אתה הכי אוהב בעצמך? <span class="label-subhint">(למשל: חסד, אהבת חינם, צדקה, סבלנות...)</span></label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-solid fa-heart"></i>
+                <input type="text" id="trait-loved" name="trait_loved" class="form-control" placeholder="פרט את המידה החזקה שבך..." required>
+              </div>
+            </div>
+
+            <!-- Trait least liked & want to improve -->
+            <div class="form-group full-width">
+              <label for="trait-to-improve" class="form-label required">איזו מידה אתה הכי פחות אוהב בעצמך ורוצה לתקן? <span class="label-subhint">(למשל: כעס, קנאות, עקשנות, ביקורתיות...)</span></label>
+              <div class="input-wrapper">
+                <i class="input-icon fa-solid fa-wrench"></i>
+                <input type="text" id="trait-to-improve" name="trait_to_improve" class="form-control" placeholder="בכנות מלאה - מה המידה שעליה אתה עובד כעת..." required>
+              </div>
+            </div>
+
+            <!-- How you handle anger or dispute -->
+            <div class="form-group full-width">
+              <label for="anger-handling" class="form-label required">איך אתה מתמודד עם כעס או מחלוקת?</label>
+              <div class="input-wrapper">
+                <textarea id="anger-handling" name="anger_handling" rows="2" class="form-control" placeholder="לדוגמה: לוקח פסק זמן להירגע, שותה מים, מנסה להבין את הצד השני, מדבר בנחת ולא בלהט הרגע..." required></textarea>
+              </div>
+            </div>
+
+            <!-- SUBSECTION: עבודת המידות בחיי היומיום והנישואין -->
+            <div class="form-group full-width sub-category-banner">
+              <div class="banner-pill"><i class="fa-solid fa-scale-balanced"></i> מידות יסוד בחיי הבית והשגרה</div>
+            </div>
+
+            <!-- Flexibility & Compromise -->
+            <div class="form-group full-width">
+              <label for="flexibility-compromise" class="form-label required">גמישות ויכולת ויתור מול עקשנות</label>
+              <div class="input-wrapper">
+                <textarea id="flexibility-compromise" name="flexibility_compromise" rows="2" class="form-control" placeholder="איך אתה מגיב כשתוכניות משתנות ברגע האחרון? ועד כמה קל לך לוותר למען שלום בית גם כשאתה בטוח שאתה צודק?" required></textarea>
+              </div>
+            </div>
+
+            <!-- Gratitude & Appreciation -->
+            <div class="form-group full-width">
+              <label for="gratitude-expression" class="form-label required">הכרת הטוב והודיה ביומיום</label>
+              <div class="input-wrapper">
+                <textarea id="gratitude-expression" name="gratitude_expression" rows="2" class="form-control" placeholder="איך מתבטאת אצלך הכרת הטוב? האם אתה אדם שרואה את הדברים הקטנים ומקפיד לומר תודה ולשבח?" required></textarea>
+              </div>
+            </div>
+
+            <!-- Receiving Criticism & Feedback -->
+            <div class="form-group full-width">
+              <label class="form-label required">איך אתה מקבל ביקורת או הערה ממישהו שקרוב אליך?</label>
+              <div class="chip-choice-group">
+                <label class="chip-choice">
+                  <input type="radio" name="receiving_feedback" value="מקשיב ומפנים גם אם בהתחלה לא קל" checked>
+                  <span class="chip-body"><i class="fa-solid fa-ear-listen"></i> מקשיב ומפנים גם אם בהתחלה יש אי-נעימות</span>
+                </label>
+                <label class="chip-choice">
+                  <input type="radio" name="receiving_feedback" value="חשוב לי שיאמר בנחת ובארבע עיניים">
+                  <span class="chip-body"><i class="fa-solid fa-shield-halved"></i> חשוב לי מאוד שיאמר בנחת ובארבע עיניים בלבד</span>
+                </label>
+                <label class="chip-choice">
+                  <input type="radio" name="receiving_feedback" value="משתדל ללמוד ולצמוח מזה">
+                  <span class="chip-body"><i class="fa-solid fa-seedling"></i> רואה בזה הזדמנות אמיתית לצמיחה ותיקון</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Dan Lekaf Zechut (Judging Favorably) -->
+            <div class="form-group full-width">
+              <label class="form-label">עין טובה ולימוד זכות</label>
+              <div class="chip-choice-group">
+                <label class="chip-choice">
+                  <input type="radio" name="dan_lechaf_zechut" value="משתדל תמיד לדון לכף זכות" checked>
+                  <span class="chip-body"><i class="fa-solid fa-sun"></i> משתדל תמיד לחפש את הצד החיובי וללמד זכות</span>
+                </label>
+                <label class="chip-choice">
+                  <input type="radio" name="dan_lechaf_zechut" value="בודק עובדות לפני שמסיק מסקנות">
+                  <span class="chip-body"><i class="fa-solid fa-magnifying-glass"></i> בודק עובדות ומשוחח לפני שמסיק מסקנות</span>
+                </label>
+                <label class="chip-choice">
+                  <input type="radio" name="dan_lechaf_zechut" value="עובד על זה באופן תמידי">
+                  <span class="chip-body"><i class="fa-solid fa-stairs"></i> עובד על עין טובה באופן מודע ומתמיד</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Handling Stress & Routine with Inner Joy -->
+            <div class="form-group full-width">
+              <label for="stress-joy-handling" class="form-label">שמחה פנימית והתמודדות עם לחצים ושגרה</label>
+              <div class="input-wrapper">
+                <textarea id="stress-joy-handling" name="stress_joy_handling" rows="2" class="form-control" placeholder="מה ממלא אותך באנרגיה חיובית, אמונה ורוגע כשעוברים תקופות עמוסות, לחוצות או שגרתיות?"></textarea>
+              </div>
+            </div>
+
+            <!-- What you do to work on character traits -->
+            <div class="form-group full-width">
+              <label for="working-on-traits" class="form-label">מה אתה עושה בפועל כדי לעבוד על המידות?</label>
+              <div class="input-wrapper">
+                <textarea id="working-on-traits" name="working_on_traits" rows="2" class="form-control" placeholder="לדוגמה: לימוד ספרי מוסר (מסילת ישרים / חובות הלבבות), התבודדות, שיחה עם הרב, חשבון נפש יומי..."></textarea>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="section-footer">
+          <div class="step-nav-buttons">
+            <button type="button" class="btn btn-secondary btn-prev-step" data-target-step="5">
+              <i class="fa-solid fa-arrow-right"></i>
+              <span>חזור לאופי ובניית בית</span>
+            </button>
+            <button type="button" class="btn btn-primary btn-next-step" data-target-step="7">
+              <span>המשך לשלב הבא: התאמה לשידוך</span>
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- SECTION 7: התאמה לשידוך (Matchmaking Preferences) -->
+      <!-- ============================================== -->
+      <section class="form-section-card" data-step-index="7" id="section-match">
+        <div class="section-card-header">
+          <div class="header-icon"><i class="fa-solid fa-rings-wedding"></i></div>
+          <div class="header-titles">
+            <h2 class="section-title">התאמה לשידוך ובירורים</h2>
+            <p class="section-desc">העדפות, גבולות גזרה ונקודות מהותיות להתקדמות</p>
+          </div>
+        </div>
+
+        <div class="section-body">
+          <div class="form-grid">
+            
+            <div class="form-grid grid-cols-2 full-width">
+              <!-- Preferred Age Range -->
+              <div class="form-group">
+                <label for="preferred-age" class="form-label">גילאים מועדפים</label>
+                <div class="input-wrapper">
+                  <i class="input-icon fa-solid fa-users-viewfinder"></i>
+                  <input type="text" id="preferred-age" name="preferred_age" class="form-control" placeholder="לדוגמה: 23-28">
+                </div>
+              </div>
+
+              <!-- Preferred Location -->
+              <div class="form-group">
+                <label for="preferred-location" class="form-label">אזור מגורים מועדף</label>
+                <div class="input-wrapper">
+                  <i class="input-icon fa-solid fa-map-location-dot"></i>
+                  <input type="text" id="preferred-location" name="preferred_location" class="form-control" placeholder="לדוגמה: ירושלים והסביבה / מרכז / פתוח למעבר">
+                </div>
+              </div>
+            </div>
+
+            <!-- Open to divorcee / with children -->
+            <div class="form-group full-width">
+              <label class="form-label required">פתוח לגרושה / בעלת ילדים?</label>
+              <div class="radio-cards-row">
+                <label class="radio-card-mini">
+                  <input type="radio" name="open_divorcee_kids" value="כן, בהחלט">
+                  <span class="radio-card-box">
+                    <i class="fa-solid fa-check"></i>
+                    <span>כן, בהחלט</span>
+                  </span>
+                </label>
+                <label class="radio-card-mini">
+                  <input type="radio" name="open_divorcee_kids" value="לגרושה ללא ילדים בלבד">
+                  <span class="radio-card-box">
+                    <i class="fa-solid fa-user-check"></i>
+                    <span>לגרושה ללא ילדים בלבד</span>
+                  </span>
+                </label>
+                <label class="radio-card-mini">
+                  <input type="radio" name="open_divorcee_kids" value="לא" checked>
+                  <span class="radio-card-box">
+                    <i class="fa-solid fa-xmark"></i>
+                    <span>לא / רווקה בלבד</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Things important to know before moving forward -->
+            <div class="form-group full-width">
+              <label for="crucial-facts" class="form-label required">דברים שחשוב שתדע עליי לפני שמתקדמים:</label>
+              <div class="input-wrapper">
+                <textarea id="crucial-facts" name="crucial_facts" rows="3" class="form-control" placeholder="עניינים מהותיים, בריאותיים, משפחתיים או השקפתיים שהכרחי לדעת מראש למניעת עוגמת נפש..." required></textarea>
+              </div>
+            </div>
+
+            <!-- Is there anything else substantial to mention? -->
+            <div class="form-group full-width">
+              <label for="additional-notes" class="form-label">האם יש משהו מהותי נוסף שחשוב לציין?</label>
+              <div class="input-wrapper">
+                <textarea id="additional-notes" name="additional_notes" rows="2" class="form-control" placeholder="כל תוספת, הערה או בקשה מיוחדת שתרצה לשתף..."></textarea>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="section-footer finish-footer">
+          <div class="completion-banner">
+            <div class="banner-icon"><i class="fa-solid fa-champagne-glasses"></i></div>
+            <div class="banner-text">
+              <h3>יישר כוח! השאלון מוכן</h3>
+              <p>תוכל כעת לצפות בכרטיס השידוך המעוצב שלך, להעתיק סיכום מושלם ל-WhatsApp עבור השדכן/ית או להדפיס כקובץ PDF.</p>
+            </div>
+          </div>
+          
+          <div class="step-nav-buttons final-buttons">
+            <button type="button" class="btn btn-secondary btn-prev-step" data-target-step="6">
+              <i class="fa-solid fa-arrow-right"></i>
+              <span>חזור למידות ונפש</span>
+            </button>
+            <button type="button" class="btn btn-whatsapp" id="btn-export-whatsapp">
+              <i class="fa-brands fa-whatsapp"></i>
+              <span>שלח סיכום ב-WhatsApp</span>
+            </button>
+            <button type="button" class="btn btn-primary" id="btn-finish-modal">
+              <i class="fa-solid fa-id-card"></i>
+              <span>פתח כרטיס שידוך</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </form>
+  </main>
+
+  <!-- Floating Sticky Action Bar -->
+  <div class="floating-action-dock" id="action-dock">
+    <div class="dock-container">
+      <div class="dock-info">
+        <span class="dock-name" id="dock-preview-name">טופס מועמד</span>
+        <span class="dock-completion" id="dock-completion-text">0% הושלם</span>
+      </div>
+      <div class="dock-buttons">
+        <button type="button" class="btn-dock" id="dock-btn-whatsapp" title="העתק לוואטסאפ">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>העתק ל-WhatsApp</span>
+        </button>
+        <button type="button" class="btn-dock" id="dock-btn-print" title="הדפס או שמור כ-PDF">
+          <i class="fa-solid fa-print"></i>
+          <span>הדפס / PDF</span>
+        </button>
+        <button type="button" class="btn-dock primary" id="dock-btn-card" title="הצג כרטיס מלא">
+          <i class="fa-solid fa-eye"></i>
+          <span>תצוגת כרטיס</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Live Shidduch Match Card ("כרטיס שידוכים מעוצב") -->
+  <div class="modal-overlay hidden" id="card-modal" role="dialog" aria-modal="true" aria-labelledby="modal-card-title">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3 id="modal-card-title" class="modal-title">
+          <i class="fa-solid fa-award"></i> כרטיס שידוכים מועמד
+        </h3>
+        <button type="button" class="btn-close-modal" id="btn-close-card-modal" aria-label="סגור חלון">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- The Elegant Printable / Viewable Card -->
+        <article class="shidduch-profile-card" id="printable-shidduch-card">
+          <div class="card-ornament-header">
+            <span class="card-bsd">בס"ד</span>
+            <div class="card-traditional-flourish">❖ ❖ ❖</div>
+            <h2 class="card-main-title">כרטיס מועמד לשידוכים</h2>
+            <p class="card-sub-quote">"בית נאמן בישראל מתוך יראת שמיים, כבוד ושלום בית"</p>
+          </div>
+
+          <div class="card-top-profile">
+            <div class="card-avatar-box">
+              <img id="card-avatar-img" src="" alt="תמונת המועמד" class="card-avatar-pic hidden">
+              <div id="card-avatar-fallback" class="card-avatar-fallback">
+                <i class="fa-solid fa-user"></i>
+              </div>
+            </div>
+            <div class="card-primary-details">
+              <h3 class="candidate-fullname" id="card-display-fullname">יוסף כהן</h3>
+              <div class="candidate-badge-row" id="card-badge-row">
+                <span class="c-badge" id="card-badge-status"><i class="fa-solid fa-heart"></i> רווק</span>
+                <span class="c-badge" id="card-badge-age"><i class="fa-solid fa-cake-candles"></i> גיל: 28</span>
+                <span class="c-badge" id="card-badge-height"><i class="fa-solid fa-ruler-vertical"></i> 1.78</span>
+                <span class="c-badge" id="card-badge-city"><i class="fa-solid fa-location-dot"></i> ירושלים</span>
+              </div>
+              <div class="candidate-quick-line" id="card-quick-line">
+                <span><strong>עדה:</strong> <span id="card-display-ethnicity">-</span></span>
+                <span class="dot-sep">•</span>
+                <span><strong>מקצוע:</strong> <span id="card-display-profession">-</span></span>
+                <span class="dot-sep">•</span>
+                <span><strong>טלפון:</strong> <span id="card-display-phone" dir="ltr">-</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-sections-grid">
+            <!-- Torah Section -->
+            <div class="card-box">
+              <h4 class="card-box-title"><i class="fa-solid fa-book-open"></i> עולם התורה והרוח</h4>
+              <ul class="card-data-list">
+                <li><strong>זמן בתשובה:</strong> <span id="card-val-teshuva">-</span></li>
+                <li><strong>קביעות עתים:</strong> <span id="card-val-torah">-</span></li>
+                <li><strong>רב וקהילה:</strong> <span id="card-val-rabbi-comm">-</span></li>
+                <li><strong>שמירת נגיעה:</strong> <span id="card-val-negiah">-</span></li>
+                <li><strong>שמירת שבת וכשרות:</strong> <span id="card-val-kashrut">-</span></li>
+              </ul>
+            </div>
+
+            <!-- Traits & Personality -->
+            <div class="card-box">
+              <h4 class="card-box-title"><i class="fa-solid fa-user-check"></i> אופי ומידות בולטות</h4>
+              <div class="traits-chips-display" id="card-traits-chips">
+                <span class="trait-pill" id="card-trait-1">-</span>
+                <span class="trait-pill" id="card-trait-2">-</span>
+                <span class="trait-pill" id="card-trait-3">-</span>
+              </div>
+              <div class="card-sub-entry">
+                <strong>מידה אהובה:</strong> <span id="card-val-trait-loved">-</span>
+              </div>
+              <div class="card-sub-entry">
+                <strong>התנהלות כלכלית:</strong> <span id="card-val-finance">-</span>
+              </div>
+            </div>
+
+            <!-- What looking for -->
+            <div class="card-box full">
+              <h4 class="card-box-title"><i class="fa-solid fa-magnifying-glass"></i> מה מחפש בבת זוג</h4>
+              <p class="card-text-content" id="card-val-looking-for">-</p>
+            </div>
+
+            <!-- Relationship Dynamics & Communication -->
+            <div class="card-box">
+              <h4 class="card-box-title"><i class="fa-solid fa-heart-circle-check"></i> דינמיקה זוגית ותקשורת</h4>
+              <ul class="card-data-list">
+                <li><strong>שפת אהבה עיקרית:</strong> <span id="card-val-love-lang">-</span></li>
+                <li><strong>פתרון מחלוקות:</strong> <span id="card-val-conflict">-</span></li>
+                <li><strong>שותפות בבית:</strong> <span id="card-val-household">-</span></li>
+                <li><strong>מרחב אישי:</strong> <span id="card-val-space">-</span></li>
+              </ul>
+            </div>
+
+            <!-- Key Middot in Daily Life -->
+            <div class="card-box">
+              <h4 class="card-box-title"><i class="fa-solid fa-scale-balanced"></i> מידות יסוד בבית</h4>
+              <ul class="card-data-list">
+                <li><strong>גמישות וויתור:</strong> <span id="card-val-flexibility">-</span></li>
+                <li><strong>הכרת הטוב:</strong> <span id="card-val-gratitude">-</span></li>
+                <li><strong>קבלת ביקורת:</strong> <span id="card-val-feedback">-</span></li>
+                <li><strong>עין טובה:</strong> <span id="card-val-dan-zechut">-</span></li>
+              </ul>
+            </div>
+
+            <!-- Shalom Bayit & Boundaries -->
+            <div class="card-box full">
+              <h4 class="card-box-title"><i class="fa-solid fa-shield-heart"></i> שלום בית וגבולות בהיכרות</h4>
+              <p class="card-text-content" id="card-val-shalom-bayit">-</p>
+            </div>
+
+            <!-- Critical notes -->
+            <div class="card-box full highlight-box">
+              <h4 class="card-box-title"><i class="fa-solid fa-circle-exclamation"></i> דברים שחשוב לדעת מראש</h4>
+              <p class="card-text-content" id="card-val-crucial">-</p>
+            </div>
+          </div>
+
+          <div class="card-footer-signature">
+            <span>טופס מועמדות לשידוכים</span>
+            <span>בברכת בשורות טובות והקמת בית נאמן</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-whatsapp" id="modal-btn-whatsapp">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>שלח לוואטסאפ</span>
+        </button>
+        <button type="button" class="btn btn-outline" id="modal-btn-print">
+          <i class="fa-solid fa-print"></i>
+          <span>הדפס כרטיס / PDF</span>
+        </button>
+        <button type="button" class="btn btn-secondary" id="modal-btn-copy-raw">
+          <i class="fa-regular fa-copy"></i>
+          <span>העתק טקסט מלא</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
